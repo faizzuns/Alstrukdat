@@ -10,9 +10,9 @@
 
 #define Nil NULL
 
-typedef int infotype;
+typedef UNIT infotype;
 typedef struct tElmtlist *address;
-typedef struct tElmtlist { 
+typedef struct tElmtlist {
 	infotype info;
 	address next;
 } ElmtList;

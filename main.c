@@ -1,20 +1,55 @@
 #include "boolean.h"
 #include "pcolor.h"
-#include "jam.h"
-#include "point.h"
 #include "matriks.h"
-#include "mesinkar.h"
-#include "mesinkata.c"
-#include "queue.h"
-#include "stackt.h"
-#include "listlinier.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 #define NEWLINE printf("\n" );
 
-void printMap(int N, int M){
 
+int i,j;
+time_t t;
+MATRIKS M1,M2;
+char command[10];
+int pilihanMenu;
+int lebarPeta;
+int panjangPeta;
+
+void initialize(){
+  srand((unsigned) time(&t));
+  for (i=GetFirstIdxBrs(M1); i<=GetLastIdxBrs(M1); i++)
+  {
+    for (j=GetFirstIdxKol(M1); j<=GetLastIdxKol(M1); j++)
+    {
+      if ((j == GetLastIdxKol(M1)-1 && i == GetFirstIdxBrs(M1)) || (j == GetLastIdxKol(M1) && i == GetFirstIdxBrs(M1) + 1) ||
+        (j == GetLastIdxKol(M1)-2 && i == GetFirstIdxBrs(M1)+1) || (j ==GetLastIdxKol(M1)-1 && i==GetFirstIdxBrs(M1)+2) ||
+        (j == GetFirstIdxKol(M1) + 1 && i == GetLastIdxBrs(M1)) || (i == GetLastIdxBrs(M1)-1 && j == GetFirstIdxKol(M1) + 2)||
+        (j == GetFirstIdxKol(M1) && i == GetLastIdxBrs(M1)-1) || (j==GetFirstIdxKol(M1) +1 && i == GetLastIdxBrs(M1) - 2)){
+        Elmt(M1,i,j)='C';
+      }else if ((j == GetFirstIdxKol(M1) +1 && i == GetLastIdxBrs(M1)-1) || (j== GetLastIdxKol(M1)-1 && i == GetFirstIdxBrs(M1)+1)){
+        Elmt(M1,i,j)='T';
+        Elmt(M2,i,j)='K';
+      }else{
+        Elmt(M1,i,j)=Kosong;
+        Elmt(M2,i,j)=Kosong;
+      }
+    }
+  }
+     i = rand() % lebarPeta+1;
+     j = rand() % panjangPeta+1;
+    int y = 1;
+    while(y<=3){
+      if(!((j == GetLastIdxKol(M1)-1 && i == GetFirstIdxBrs(M1)) || (j == GetLastIdxKol(M1) && i == GetFirstIdxBrs(M1) + 1) ||
+        (j == GetLastIdxKol(M1)-2 && i == GetFirstIdxBrs(M1)+1) || (j ==GetLastIdxKol(M1)-1 && i==GetFirstIdxBrs(M1)+2) ||
+        (j == GetFirstIdxKol(M1) + 1 && i == GetLastIdxBrs(M1)) || (i == GetLastIdxBrs(M1)-1 && j == GetFirstIdxKol(M1) + 2)||
+        (j == GetFirstIdxKol(M1) && i == GetLastIdxBrs(M1)-1) || (j==GetFirstIdxKol(M1) +1 && i == GetLastIdxBrs(M1) - 2)||
+        (i==0 || j ==0)||(j == GetFirstIdxKol(M1) +1 && i == GetLastIdxBrs(M1)-1) || (j== GetLastIdxKol(M1)-1 && i == GetFirstIdxBrs(M1)+1))){
+         Elmt(M1,i,j) = 'V';
+         y++;
+         }
+         i = rand() % lebarPeta+1;
+         j = rand() % panjangPeta+1;
+    }
 }
 
 int main(){
@@ -24,18 +59,10 @@ int main(){
   printf("1. Start Game\n" );
   printf("2. Load Game\n" );
   printf("3. Exit\n" );
-
-  int pilihanMenu;
-  int lebarPeta;
-  int panjangPeta;
-
   printf("Masukan pilihan : " );scanf("%d", &pilihanMenu);
 
   switch (pilihanMenu) {
     case 1:
-      lebarPeta = 0;
-      panjangPeta = 0;
-
       do {
         /* code */
         NEWLINE;
@@ -44,6 +71,10 @@ int main(){
         printf("(Peta Minimal berukuran 8x8)\n" );
         printf("Masukan Ukuran Peta : " );scanf("%d %d",&lebarPeta,&panjangPeta );
       } while(lebarPeta<8 || panjangPeta<8);
+    	MakeMATRIKS(lebarPeta,panjangPeta,&M1);
+    	MakeMATRIKS(lebarPeta,panjangPeta,&M2);
+    	initialize();
+    	TulisMap(M1,M2);
 
       break;
     case 2:

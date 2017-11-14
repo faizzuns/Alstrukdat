@@ -70,7 +70,7 @@ indeks GetLastIdxKol (MATRIKS M) {
  * Mengirimkan true jika i, j adalah indeks efektif bagi M
  */
 boolean IsIdxEff (MATRIKS M, indeks i, indeks j) {
-	return i >= GetFirstIdxBrs(M) && i <= GetLastIdxBrs(M) && j >= GetFirstIdxKol(M) && j <= GetLastIdxKol(M); 
+	return i >= GetFirstIdxBrs(M) && i <= GetLastIdxBrs(M) && j >= GetFirstIdxKol(M) && j <= GetLastIdxKol(M);
 }
 
 /*
@@ -102,7 +102,7 @@ void CopyMATRIKS (MATRIKS MIn, MATRIKS * MHsl) {
  * Contoh: Jika NB = 3 dan NK = 3, maka contoh cara membaca isi matriks :
    1 2 3
    4 5 6
-   8 9 10 
+   8 9 10
  */
 void BacaMATRIKS (MATRIKS * M, int NB, int NK) {
 	MakeMATRIKS(NB,NK,M);
@@ -115,7 +115,7 @@ void BacaMATRIKS (MATRIKS * M, int NB, int NK) {
 /*
  * TulisMATRIKS
  * I.S. M terdefinisi
- * F.S. Nilai M(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
+ * F.S. Nilai M(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris
    dipisahkan sebuah spasi
  * Proses: Menulis nilai setiap elemen M ke layar dengan traversal per baris dan per kolom
  * Contoh: menulis matriks 3x3 (ingat di akhir tiap baris, tidak ada spasi)
@@ -123,16 +123,56 @@ void BacaMATRIKS (MATRIKS * M, int NB, int NK) {
    4 5 6
    8 9 10
  */
-void TulisMATRIKS (MATRIKS M) {
-	int i,j;
-	for (i = GetFirstIdxBrs(M); i <= GetLastIdxBrs(M); i++)
-		for (j = GetFirstIdxKol(M); j <= GetLastIdxKol(M); j++) {
-			printf("%d", Elmt(M,i,j));
-			if (j == GetLastIdxKol(M) && i < GetLastIdxBrs(M))
-				printf("\n");
-			if (j < GetLastIdxKol(M))
-				printf(" ");
+void TulisMap (MATRIKS M, MATRIKS M1) {
+	indeks i,j;
+	for (i=GetFirstIdxBrs(M); i<=GetLastIdxBrs(M); i++)
+	{
+		for (j=GetFirstIdxKol(M); j<=GetLastIdxKol(M); j++)
+		{
+				if (j!=GetLastIdxKol(M)){
+					printf("******");
+				}else{
+					printf("******\n");
+				}
+
 		}
+		for (j=GetFirstIdxKol(M); j<=GetLastIdxKol(M); j++)
+		{
+			if (j!=GetLastIdxKol(M)){
+				printf("*  %c *",Elmt(M,i,j));
+			}else{
+				printf("*  %c *\n",Elmt(M,i,j));
+			}
+		}
+		for (j=GetFirstIdxKol(M); j<=GetLastIdxKol(M); j++)
+		{
+			if (j!=GetLastIdxKol(M)){
+				printf("*  %c *",Elmt(M1,i,j));
+			}else{
+				printf("*  %c *\n",Elmt(M1,i,j));
+			}
+		}
+		for (j=GetFirstIdxKol(M); j<=GetLastIdxKol(M); j++)
+		{
+			if (j!=GetLastIdxKol(M)){
+				printf("*    *");
+			}else{
+				printf("*    *\n");
+			}
+		}
+		if (i == GetLastIdxBrs(M)){
+			for (j=GetFirstIdxKol(M); j<=GetLastIdxKol(M); j++)
+			{
+				if (j!=GetLastIdxKol(M)){
+					printf("******");
+				}else{
+					printf("******\n");
+				}
+
+			}
+		}
+
+	}
 }
 
 /*
@@ -149,7 +189,7 @@ MATRIKS TambahMATRIKS (MATRIKS M1, MATRIKS M2) {
 			Elmt(M,i,j) = Elmt(M1,i,j) + Elmt(M2,i,j);
 	return M;
 }
- 
+
 
 /*
  * KurangMATRIKS
@@ -212,7 +252,7 @@ void PKaliKons (MATRIKS * M, ElType K) {
  * EQ
  * Mengirimkan true jika M1 = M2, yaitu NBElmt(M1) = NBElmt(M2) dan
  * untuk setiap i,j yang merupakan indeks baris dan kolom M1(i,j) = M2(i,j)
- * Juga merupakan strong EQ karena GetFirstIdxBrs(M1) = GetFirstIdxBrs(M2) 
+ * Juga merupakan strong EQ karena GetFirstIdxBrs(M1) = GetFirstIdxBrs(M2)
    dan GetLastIdxKol(M1) = GetLastIdxKol(M2)
  */
 boolean EQ (MATRIKS M1, MATRIKS M2) {
@@ -262,7 +302,7 @@ boolean IsBujurSangkar (MATRIKS M) {
 
 /*
  * IsSimetri
- * Mengirimkan true jika M adalah matriks simetri : IsBujurSangkar(M) 
+ * Mengirimkan true jika M adalah matriks simetri : IsBujurSangkar(M)
    dan untuk setiap elemen M, M(i,j) = M(j,i)
  */
 boolean IsSimetri (MATRIKS M) {
@@ -279,7 +319,7 @@ boolean IsSimetri (MATRIKS M) {
 
 /*
  * IsSatuan
- * Mengirimkan true jika M adalah matriks satuan: IsBujurSangkar(M) dan 
+ * Mengirimkan true jika M adalah matriks satuan: IsBujurSangkar(M) dan
    setiap elemen diagonal M bernilai 1 dan elemen yang bukan diagonal bernilai 0
  */
 boolean IsSatuan (MATRIKS M) {
@@ -296,7 +336,7 @@ boolean IsSatuan (MATRIKS M) {
 
 /*
  * IsSparse
- * Mengirimkan true jika M adalah matriks sparse: mariks “jarang” dengan definisi: 
+ * Mengirimkan true jika M adalah matriks sparse: mariks “jarang” dengan definisi:
    hanya maksimal 5% dari memori matriks yang efektif bukan bernilai 0
  */
 boolean IsSparse (MATRIKS M) {
@@ -322,7 +362,7 @@ MATRIKS Inverse1 (MATRIKS M) {
  * Prekondisi: IsBujurSangkar(M)
  * Menghitung nilai determinan M
  */
-float Determinan (MATRIKS M) {	
+float Determinan (MATRIKS M) {
 	if (NBrsEff(M) == 1)
 		return Elmt(M,GetFirstIdxBrs(M), GetLastIdxBrs(M));
 	else {
@@ -413,9 +453,9 @@ void MaxMinBrs (MATRIKS M, indeks i, ElType * max, ElType * min) {
 		if (Elmt(M,i,j) > *max)
 			*max = Elmt(M,i,j);
 	}
-} 
+}
 
-/* 
+/*
  * MaxMinKol
  * I.S. j adalah indeks kolom efektif dari M, M terdefinisi
  * F.S. max berisi elemen maksimum pada kolom j dari M
