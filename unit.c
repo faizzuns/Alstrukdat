@@ -1,5 +1,8 @@
 #include "boolean.h"
 #include "point.h"
+#include "unit.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void CreateUnit(UNIT *U,char type){
   UnitType(*U) = type;
@@ -38,4 +41,17 @@ void CreateUnit(UNIT *U,char type){
 void setCoordinateUnit(UNIT *U, int absis, int ordinat){
   AbsisUnit(*U) = absis;
   OrdinatUnit(*U) = ordinat;
+}
+
+void printUnit(UNIT U){
+  printf("%c\n", UnitType(U));
+  printf("%d\n", Health(U));
+  printf("%d\n", Attack(U) );
+  printf("%d\n", MaxMovePoint(U));
+  printf("%d\n", MovePoint(U));
+  printf("%d\n", AttackType(U));
+  printf("%d\n", Attack(U));
+  printf("%d\n", AbsisUnit(U));
+  printf("%d\n", OrdinatUnit(U));
+  printf("%d\n", Price(U));
 }

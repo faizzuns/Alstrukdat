@@ -4,6 +4,8 @@
 
 #include "boolean.h"
 #include "point.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
   char unit_type;
@@ -35,7 +37,8 @@ typedef struct {
 
 void CreateUnit(UNIT *U,char type);
 
-void setCoordinateUnit(int absis, int ordinat);
+void setCoordinateUnit(UNIT *U,int absis, int ordinat);
 
+void printUnit(UNIT U);
 
 #endif

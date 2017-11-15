@@ -1,19 +1,12 @@
-#include "boolean.h"
-#include "player.h"
-#include "unit.h"
 #include "listlinier.h"
+#include "player.h"
+#include "boolean.h"
 
-
-void CreatePlayer(PLAYER *P){
-  *P.gold = 100;
-  CreateEmpty(P.unit);
-  UNIT u;
-  UNIT y;
-  UNIT z;
-  CreateUnit(&u,'K');
-  InsVFirst(P.unit, u);
-  CreateUnit(&y,'A');
-  InsVFirst(P.unit, y);
-  CreateUnit(&z,'S');
-  InsVFirst(P.unit, z);
+void CreatePlayer(PLAYER *P, int id, int gold, List listUnit, int income, int upkeep, int warna){
+  ID(*P) = id;
+  Gold(*P) = gold;
+  ListUnit(*P) = listUnit;
+  Income(*P) = income;
+  UpKeep(*P) = upkeep;
+  Warna(*P) = warna;
 }

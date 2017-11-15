@@ -1,59 +1,40 @@
 #include "boolean.h"
-#include "pcolor.h"
-#include "matriks.h"
+#include "unit.h"
+#include "listlinier.h"
+#include "player.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-#define NEWLINE printf("\n" );
-
-
-int i,j;
-time_t t;
-MATRIKS M1,M2;
-char command[10];
 int pilihanMenu;
 int lebarPeta;
 int panjangPeta;
 
-void initialize(){
-  srand((unsigned) time(&t));
-  for (i=GetFirstIdxBrs(M1); i<=GetLastIdxBrs(M1); i++)
-  {
-    for (j=GetFirstIdxKol(M1); j<=GetLastIdxKol(M1); j++)
-    {
-      if ((j == GetLastIdxKol(M1)-1 && i == GetFirstIdxBrs(M1)) || (j == GetLastIdxKol(M1) && i == GetFirstIdxBrs(M1) + 1) ||
-        (j == GetLastIdxKol(M1)-2 && i == GetFirstIdxBrs(M1)+1) || (j ==GetLastIdxKol(M1)-1 && i==GetFirstIdxBrs(M1)+2) ||
-        (j == GetFirstIdxKol(M1) + 1 && i == GetLastIdxBrs(M1)) || (i == GetLastIdxBrs(M1)-1 && j == GetFirstIdxKol(M1) + 2)||
-        (j == GetFirstIdxKol(M1) && i == GetLastIdxBrs(M1)-1) || (j==GetFirstIdxKol(M1) +1 && i == GetLastIdxBrs(M1) - 2)){
-        Elmt(M1,i,j)='C';
-      }else if ((j == GetFirstIdxKol(M1) +1 && i == GetLastIdxBrs(M1)-1) || (j== GetLastIdxKol(M1)-1 && i == GetFirstIdxBrs(M1)+1)){
-        Elmt(M1,i,j)='T';
-        Elmt(M2,i,j)='K';
-      }else{
-        Elmt(M1,i,j)=Kosong;
-        Elmt(M2,i,j)=Kosong;
-      }
-    }
-  }
-     i = rand() % lebarPeta+1;
-     j = rand() % panjangPeta+1;
-    int y = 1;
-    while(y<=3){
-      if(!((j == GetLastIdxKol(M1)-1 && i == GetFirstIdxBrs(M1)) || (j == GetLastIdxKol(M1) && i == GetFirstIdxBrs(M1) + 1) ||
-        (j == GetLastIdxKol(M1)-2 && i == GetFirstIdxBrs(M1)+1) || (j ==GetLastIdxKol(M1)-1 && i==GetFirstIdxBrs(M1)+2) ||
-        (j == GetFirstIdxKol(M1) + 1 && i == GetLastIdxBrs(M1)) || (i == GetLastIdxBrs(M1)-1 && j == GetFirstIdxKol(M1) + 2)||
-        (j == GetFirstIdxKol(M1) && i == GetLastIdxBrs(M1)-1) || (j==GetFirstIdxKol(M1) +1 && i == GetLastIdxBrs(M1) - 2)||
-        (i==0 || j ==0)||(j == GetFirstIdxKol(M1) +1 && i == GetLastIdxBrs(M1)-1) || (j== GetLastIdxKol(M1)-1 && i == GetFirstIdxBrs(M1)+1))){
-         Elmt(M1,i,j) = 'V';
-         y++;
-         }
-         i = rand() % lebarPeta+1;
-         j = rand() % panjangPeta+1;
-    }
-}
+PLAYER pemainSatu;
+PLAYER pemainDua;
+
+#define NEWLINE printf("\n" );
 
 int main(){
+  UNIT unitKing;
+  UNIT unitArcher;
+  UNIT unitSword;
+  CreateUnit(&unitKing,'K');
+  CreateUnit(&unitArcher,'A');
+  CreateUnit(&unitSword,'S');
 
+  List listUnitSatu;
+  List listUnitDua;
+
+  CreateList(&listUnitSatu);
+  CreateList(&listUnitDua);
+  InsVFirst(&listUnitSatu, unitKing);
+  InsVFirst(&listUnitDua, unitKing);
+
+  //PrintList(listUnit);
+
+  //printUnit(unitKing);
+  //printUnit(unitArcher);
+  //printUnit(unitSword);
   printf("SELAMAT DATANG DI BATTLE OF OLYMPIA!\n");
   printf("Silahkan Pilih menu :\n" );
   printf("1. Start Game\n" );
@@ -71,11 +52,12 @@ int main(){
         printf("(Peta Minimal berukuran 8x8)\n" );
         printf("Masukan Ukuran Peta : " );scanf("%d %d",&lebarPeta,&panjangPeta );
       } while(lebarPeta<8 || panjangPeta<8);
-    	MakeMATRIKS(lebarPeta,panjangPeta,&M1);
-    	MakeMATRIKS(lebarPeta,panjangPeta,&M2);
-    	initialize();
-    	TulisMap(M1,M2);
 
+      NEWLINE;
+      CreatePlayer(&pemainSatu,1,100,listUnitSatu,10,5,0);
+      CreatePlayer(&pemainDua,2,100,listUnitDua,10,5,0);
+
+      printf("GAME BEGIN!\n");
       break;
     case 2:
       break;
@@ -87,6 +69,8 @@ int main(){
       printf("Menu Tidak Ditemukan\n" );
       break;
   }
+
+
 
   return 0;
 }
